@@ -1,11 +1,13 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 5000
+require('dotenv').config()
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-require('dotenv').config()
+const stripe = require('stripe')(process.env.PAYMENT_SECRET_KEY);
 app.use(cors())
 app.use(express.json())
+
 
 app.get('/', (req, res) => {
     res.send('Bornomala Acedamy Running....')
@@ -55,6 +57,8 @@ async function run() {
         const classesCollection = client.db("bornomala-academy").collection("classes")
         const instructorsCollection = client.db("bornomala-academy").collection("instructors")
         const usersCollection = client.db("bornomala-academy").collection("users")
+        const cartCollection = client.db("bornomala-academy").collection("Cart")
+        const paymentCollection = client.db("bornomala-academy").collection("payments");
 
 
         //users 
@@ -112,6 +116,57 @@ async function run() {
             const query = { _id: new ObjectId(id) };
             const result = await instructorsCollection.findOne(query)
             res.send(result)
+        })
+        //cart 
+        app.post("/carts", async (req, res) => {
+            const selectedClass = req.body
+            const result = await cartCollection.insertOne(selectedClass)
+            res.send(result)
+        })
+
+        app.get("/carts", verifyJWT, async (req, res) => {
+            const usersEmail = req.query.email
+            const decodedEmail = req.decoded.email;
+            if (usersEmail !== decodedEmail) {
+                return res.status(403).send({ error: true, message: 'forbidden access' })
+            }
+            if (!usersEmail) {
+                res.send([]);
+            }
+            const query = { studentEmail: usersEmail }
+            const result = await cartCollection.find(query).toArray()
+            res.send(result)
+        })
+        app.delete("/carts/:id", async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            const result = await cartCollection.deleteOne(query)
+            res.send(result)
+        })
+        // payments 
+
+        app.post('/create-payment-intent', verifyJWT, async (req, res) => {
+            const { price } = req.body;
+            const amount = parseInt(price * 100);
+            const paymentIntent = await stripe.paymentIntents.create({
+                amount: amount,
+                currency: 'usd',
+                payment_method_types: ['card']
+            });
+
+            res.send({
+                clientSecret: paymentIntent.client_secret
+            })
+        })
+
+        app.post('/payments', verifyJWT, async (req, res) => {
+            const payment = req.body;
+            const insertResult = await paymentCollection.insertOne(payment);
+
+            const query = { _id: { $in: payment.courseId.map(id => new ObjectId(id)) } }
+            const deleteResult = await cartCollection.deleteMany(query)
+
+            res.send({ insertResult, deleteResult });
         })
 
 
