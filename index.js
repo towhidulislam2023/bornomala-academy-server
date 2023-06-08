@@ -35,7 +35,6 @@ app.post('/jwt', (req, res) => {
     const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10h' })
     res.send({ token })
 })
-//  TODO: set Env File 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.VITE_USER_DB_NAME}:${process.env.VITE_USER_DB_PASS}@cluster0.w8zzyxt.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -168,6 +167,34 @@ async function run() {
 
             res.send({ insertResult, deleteResult });
         })
+        
+
+        app.get('/payments', async (req, res) => {
+            try {
+                const email = req.query.email;
+                const query = { email: email };
+                const payments = await paymentCollection.find(query).toArray();
+
+                if (payments.length === 0) {
+                    return res.send([]);
+                }
+
+                const courseIds = payments.flatMap(payment => payment.courseId.map(id =>  new ObjectId(id)));
+                console.log(courseIds);
+
+                const classesData = await classesCollection.find({ _id: { $in: courseIds } }).toArray();
+                console.log(classesData);
+
+                if (classesData.length === 0) {
+                    return res.send([]);
+                }
+
+                res.send(classesData);
+            } catch (error) {
+                console.error('Error in fetching classes:', error);
+                res.status(500).send({ error: 'Internal server error' });
+            }
+        });
 
 
 
