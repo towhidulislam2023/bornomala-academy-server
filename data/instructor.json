@@ -11,132 +11,132 @@
     "name": "Jean-Luc Dubois",
     "email": "jean-luc.dubois@example.com",
     "numOfClasses": 1,
-    "totalStudents": 35
+    "totalStudents": 30
   },
   {
     "image": "https://img.freepik.com/premium-photo/young-male-teacher-standing-with-book_488220-6673.jpg?w=900",
     "name": "Hans Müller",
     "email": "hans.muller@example.com",
     "numOfClasses": 1,
-    "totalStudents": 25
+    "totalStudents": 32
   },
   {
     "image": "https://img.freepik.com/premium-photo/teacher-smiling-camera-classroom_13339-229057.jpg?w=900",
     "name": "Giulia Rossi",
     "email": "giulia.rossi@example.com",
     "numOfClasses": 1,
-    "totalStudents": 45
+    "totalStudents": 28
   },
   {
     "image": "https://img.freepik.com/free-photo/elegant-young-teacher-with-brunette-hair-stylish-light-shirt-black-striped-suit-glasses-holding-writings-pen-giving-lecture_197531-24666.jpg?w=900&t=st=1686111457~exp=1686112057~hmac=497e9b3a4504398aecfbf995d4906fce77ec16084f2288d6ecf140dab8b1f20f",
     "name": "John Smith",
     "email": "john.smith@example.com",
     "numOfClasses": 1,
-    "totalStudents": 15
+    "totalStudents": 20
   },
   {
     "image": "https://img.freepik.com/free-photo/traveller-with-binoculars-map_23-2147654238.jpg?w=900&t=st=1686097464~exp=1686098064~hmac=71e9611452832af3bab77a808d79a1d84e0550a9ead4b720901a73c670545b62",
     "name": "Yuki Tanaka",
     "email": "yuki.tanaka@example.com",
     "numOfClasses": 1,
-    "totalStudents": 30
+    "totalStudents": 34
   },
   {
     "image": "https://img.freepik.com/free-photo/young-woman-teacher-wearing-glasses-standing-near-blackboard-classroom-explaining-lesson-pointing-with-index-finger-blackboard-smiling-confident_141793-133120.jpg?w=900&t=st=1686143558~exp=1686144158~hmac=f7a7f2808049abebf6748d45acb3ff25fbe76622d13b9c3ed7bdaff6abfb6bb9",
     "name": "Li Wei",
     "email": "li.wei@example.com",
     "numOfClasses": 1,
-    "totalStudents": 20
+    "totalStudents": 30
   },
   {
     "image": "https://img.freepik.com/free-photo/front-view-young-female-student-grey-coat-posing-holding-books-with-smile-pink-background-lessons-university-college-study_140725-34981.jpg?w=900&t=st=1686143614~exp=1686144214~hmac=0f55d8091a3d024457b734541b20a0cbf3cf35cb4e9b856962cff7bee1e350fa",
     "name": "Marie Lefèvre",
     "email": "marie.lefevre@example.com",
     "numOfClasses": 1,
-    "totalStudents": 18
+    "totalStudents": 32
   },
   {
     "image": "https://img.freepik.com/free-photo/smiling-holding-books-young-teacher-standing-front-blackboard-classroom_141793-136547.jpg?w=900&t=st=1686143737~exp=1686144337~hmac=4d6234e9b58b9c30137058f829b87fa32b9398903ffecfe31cf62ceb7f742f96",
     "name": "Carlos García",
     "email": "carlos.garcia@example.com",
     "numOfClasses": 1,
-    "totalStudents": 22
+    "totalStudents": 25
   },
   {
     "image": "https://img.freepik.com/free-photo/smiling-young-business-woman-with-pen-tablet-notes-gray_155003-14838.jpg?w=900&t=st=1686143782~exp=1686144382~hmac=c0f787c5bff00ce5d93d63ad282e4bcd26ac2e22c9d3eccce905012745f8f47e",
     "name": "Sabine Schmidt",
     "email": "sabine.schmidt@example.com",
     "numOfClasses": 1,
-    "totalStudents": 17
+    "totalStudents": 28
   },
   {
     "image": "https://img.freepik.com/free-photo/smiling-young-female-teacher-standing-front-blackboard-holding-books-classroom_141793-137713.jpg?w=900&t=st=1686143814~exp=1686144414~hmac=17fff816c786ee5369d08ec25b1fefc08c47e50d9e37a74e568f0f634f99f9fc",
     "name": "Natalia Ivanova",
     "email": "natalia.ivanova@example.com",
     "numOfClasses":1,
-    "totalStudents": 28
+    "totalStudents": 30
   },
   {
     "image": "https://img.freepik.com/free-photo/unpleased-male-teacher-wearing-glasses-points-with-pointer-stick-blackboard-sitting-table-with-school-tools-classroom_141793-114329.jpg?w=900&t=st=1686143863~exp=1686144463~hmac=c7f333bd9ab3f98180c7c07ccaa04272eccc7b8dc81b57b210504de573233ba0",
     "name": "Emily Johnson",
     "email": "emily.johnson@example.com",
     "numOfClasses": 1,
-    "totalStudents": 21
+    "totalStudents": 20
   },
   {
     "image": "https://img.freepik.com/free-photo/young-woman-teacher-wearing-glasses-with-book-holding-pointer-while-explaining-lesson-looking-with-skeptic-expression-sitting-school-desk-front-blackboard-classroom_141793-130818.jpg?w=900&t=st=1686144039~exp=1686144639~hmac=a5887468a1dfae585ec7b8ad36aa1b918e1f8463e65c30fb5311e043bb348869",
     "name": "Antonio Russo",
     "email": "antonio.russo@example.com",
     "numOfClasses": 1,
-    "totalStudents": 16
+    "totalStudents": 32
   },
   {
     "image": "https://img.freepik.com/free-photo/teacher-with-stack-books_23-2148665913.jpg?w=900&t=st=1686144380~exp=1686144980~hmac=04b5b342398150119d0bb4e50ad89dab07ab9737e1878d31fa4a523f02629613",
     "name": "Isabella Fernandez",
     "email": "isabella.fernandez@example.com",
     "numOfClasses": 1,
-    "totalStudents": 33
+    "totalStudents": 25
   },
   {
     "image": "https://img.freepik.com/free-photo/good-looking-blonde-college-student-posing-against-pink-wall_273609-20738.jpg?w=900&t=st=1686144336~exp=1686144936~hmac=e615369fd26c54deab07e6bd73a29be343a3f5971aa33c70a89d59feb6c0474f",
     "name": "Sophie Martin",
     "email": "sophie.martin@example.com",
     "numOfClasses": 1,
-    "totalStudents": 19
+    "totalStudents": 22
   },
   {
     "image": "https://img.freepik.com/free-photo/smiling-male-teacher-wearing-glasses-holding-points-book-sitting-table-with-school-tools-classroom_141793-114592.jpg?w=900&t=st=1686144273~exp=1686144873~hmac=328548f46253a7b07b7c46bed7fec61de1d391c25cfd538e191b5e215484cdad",
     "name": "Ahmed Khalid",
     "email": "ahmed.khalid@example.com",
     "numOfClasses": 1,
-    "totalStudents": 23
+    "totalStudents": 30
   },
   {
     "image": "https://img.freepik.com/free-photo/traveller-with-binoculars-map_23-2147654238.jpg?w=900&t=st=1686097464~exp=1686098064~hmac=71e9611452832af3bab77a808d79a1d84e0550a9ead4b720901a73c670545b62",
     "name": "Luis Gomez",
     "email": "luis.gomez@example.com",
     "numOfClasses": 1,
-    "totalStudents": 14
+    "totalStudents": 25
   },
   {
     "image": "https://img.freepik.com/free-photo/traveller-with-binoculars-map_23-2147654238.jpg?w=900&t=st=1686097464~exp=1686098064~hmac=71e9611452832af3bab77a808d79a1d84e0550a9ead4b720901a73c670545b62",
     "name": "Anna Wagner",
     "email": "anna.wagner@example.com",
     "numOfClasses": 1,
-    "totalStudents": 20
+    "totalStudents": 32
   },
   {
     "image": "https://img.freepik.com/free-photo/teacher-smart-instructor-grey-suit-classroom-with-computer-whiteboard-explaining-geometry_140725-163417.jpg?w=900&t=st=1686144168~exp=1686144768~hmac=eb889cd243ed887ffd6e3e3ee021487ee05d182cf7f80fdbee6d201a23821642",
     "name": "Michael Thompson",
     "email": "michael.thompson@example.com",
     "numOfClasses": 1,
-    "totalStudents": 24
+    "totalStudents": 20
   },
   {
     "image": "https://img.freepik.com/free-photo/young-attractive-dark-haired-man-glasses-is-showing-business-plan-whiteboard-he-wears-blue-shirt-dark-jacket-he-is-smiling-side_197531-546.jpg?w=900&t=st=1686144100~exp=1686144700~hmac=3172624176a73e07876e42a34fd92bf8711bb19dc94c99c12d5b35e588abd575",
     "name": "Juan Martinez",
     "email": "juan.martinez@example.com",
     "numOfClasses": 1,
-    "totalStudents": 18
+    "totalStudents": 28
   }
 ]

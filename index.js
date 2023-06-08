@@ -1,11 +1,9 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT|| 5000
+const port = process.env.PORT || 5000
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 require('dotenv').config()
-// const jwt = require('jsonwebtoken');
-// bornomalaAcademy 
-// c9cjsY0Bck61fuEP
 app.use(cors())
 app.use(express.json())
 
@@ -13,10 +11,35 @@ app.get('/', (req, res) => {
     res.send('Bornomala Acedamy Running....')
 })
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://bornomalaAcademy:c9cjsY0Bck61fuEP@cluster0.w8zzyxt.mongodb.net/?retryWrites=true&w=majority";
+const verifyJWT = (req, res, next) => {
+    const authorization = req.headers.authorization;
+    if (!authorization) {
+        return res.status(401).send({ error: true, message: 'unauthorized access' });
+    }
+    // bearer token
+    const token = authorization.split(' ')[1];
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).send({ error: true, message: 'unauthorized access' })
+        }
+        req.decoded = decoded;
+        next();
+    })
+}
+
+app.post('/jwt', (req, res) => {
+    const user = req.body;
+    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '10h' })
+    res.send({ token })
+})
+//  TODO: set Env File 
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const uri = `mongodb+srv://${process.env.VITE_USER_DB_NAME}:${process.env.VITE_USER_DB_PASS}@cluster0.w8zzyxt.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+
+
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -31,24 +54,66 @@ async function run() {
         // await client.connect();
         const classesCollection = client.db("bornomala-academy").collection("classes")
         const instructorsCollection = client.db("bornomala-academy").collection("instructors")
-        app.get("/classes",async (req,res)=>{
+        const usersCollection = client.db("bornomala-academy").collection("users")
+
+
+        //users 
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            const query = { email: user.email }
+            const existingUser = await usersCollection.findOne(query);
+
+            if (existingUser) {
+                return res.send({ message: 'user already exists' })
+            }
+
+            const result = await usersCollection.insertOne(user);
+            res.send(result);
+        });
+        app.get("/users/:email", async (req, res) => {
+            const useremail = req.params.email
+            const query = { email: useremail }
+            const result = await usersCollection.findOne(query)
+            res.send(result)
+        })
+
+
+
+
+        // classes
+        app.get("/classes", async (req, res) => {
             const result = await classesCollection.find().toArray()
             res.send(result)
         })
-        
-        app.get("/popularClasses",async (req,res)=>{
+
+        app.get("/popularClasses", async (req, res) => {
             const result = await classesCollection.find().sort({ availableSeats: 1 }).limit(6).toArray()
             res.send(result)
         })
-        app.get("/popularinstructors",async (req,res)=>{
-            const result = await instructorsCollection.find().sort({ totalStudents: 1 }).limit(6).toArray()
+
+        app.get("/classes/:email", async (req, res) => {
+            const instructorEmail = req.params.email
+            const query = { email: instructorEmail };
+            const result = await classesCollection.find(query).toArray()
             res.send(result)
         })
-        app.get("/instructors",async (req,res)=>{
+
+        // instructors
+        app.get("/popularinstructors", async (req, res) => {
+            const result = await instructorsCollection.find().sort({ totalStudents: - 1 }).limit(6).toArray()
+            res.send(result)
+        })
+        app.get("/instructors", async (req, res) => {
             const result = await instructorsCollection.find().toArray()
             res.send(result)
         })
-        
+        app.get("/instructors/:id", async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) };
+            const result = await instructorsCollection.findOne(query)
+            res.send(result)
+        })
+
 
 
 
