@@ -60,6 +60,29 @@ async function run() {
         const paymentCollection = client.db("bornomala-academy").collection("payments");
 
 
+
+
+
+        const verifyAdmin = async (req, res, next) => {
+            const email = req.decoded.email;
+            const query = { email: email }
+            const user = await usersCollection.findOne(query);
+            if (user?.role !== 'admin') {
+                return res.status(403).send({ error: true, message: 'forbidden message' });
+            }
+            next();
+        }
+        const verifyInstructor = async (req, res, next) => {
+            const email = req.decoded.email;
+            const query = { email: email }
+            const user = await usersCollection.findOne(query);
+            if (user?.role !== 'instructor') {
+                return res.status(403).send({ error: true, message: 'forbidden message' });
+            }
+            next();
+        }
+
+
         //users 
         app.post('/users', async (req, res) => {
             const user = req.body;
@@ -73,6 +96,28 @@ async function run() {
             const result = await usersCollection.insertOne(user);
             res.send(result);
         });
+
+
+        app.get("/users", verifyJWT, verifyAdmin, async (req, res) => {
+
+            const result = await usersCollection.find().toArray()
+            res.send(result)
+        })
+        app.put("/users/:id", verifyJWT, verifyAdmin, async(req,res)=>{
+            const id = req.params.id
+            const updateInfo=req.body 
+            const query={_id:new ObjectId(id)}
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    role: updateInfo.role
+                },
+            };
+            const result = await usersCollection.updateOne(query, updateDoc, options)
+            res.send(result)
+        })
+
+
         app.get("/users/:email", async (req, res) => {
             const useremail = req.params.email
             const query = { email: useremail }
@@ -85,6 +130,33 @@ async function run() {
 
         // classes
         app.get("/classes", async (req, res) => {
+            const query = { status: "approved" }
+            const result = await classesCollection.find(query).toArray()
+            res.send(result)
+        })
+        //pending class only admin can access
+        app.get("/pendingclasses", verifyJWT, verifyAdmin, async (req, res) => {
+            const query = { status: "pending" }
+            const result = await classesCollection.find(query).toArray()
+            res.send(result)
+        })
+        // update Approve
+        app.put('/users/:id' , async(req, res)=>{
+            const id= req.params.id 
+            const query= {_id: new ObjectId(id)}
+            const doc= req.body
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: doc.status
+                },
+            };
+            const result=await usersCollection.updateOne(query,updateDoc,options)
+            res.send(result)
+
+        })
+
+        app.get("/allClasses", async (req, res) => {
             const result = await classesCollection.find().toArray()
             res.send(result)
         })
@@ -94,12 +166,26 @@ async function run() {
             res.send(result)
         })
 
-        app.get("/classes/:email", async (req, res) => {
+        app.get("/classes/:email", verifyJWT, async (req, res) => {
             const instructorEmail = req.params.email
             const query = { email: instructorEmail };
             const result = await classesCollection.find(query).toArray()
             res.send(result)
         })
+        app.get("/instructorclasses/:email", verifyJWT, verifyInstructor, async (req, res) => {
+            const instructorEmail = req.params.email
+            const query = { email: instructorEmail };
+            const result = await classesCollection.find(query).toArray()
+            res.send(result)
+        })
+        // add classes by instructor 
+
+        app.post("/classes", verifyJWT, verifyInstructor, async (req, res) => {
+            const doc = req.body
+            const result = await classesCollection.insertOne(doc)
+            res.send(result)
+        })
+
 
         // instructors
         app.get("/popularinstructors", async (req, res) => {
@@ -110,26 +196,13 @@ async function run() {
             const result = await instructorsCollection.find().toArray()
             res.send(result)
         })
-        app.put("/instructor", async (req, res) => {
-            const doc = req.body
-            console.log(doc)
-            const filter = { email: doc.email }
-            const options = { upsert: true };
-
-            const updateDoc = {
-                $set: {
-                    totalStudents: doc.totalStudent
-                },
-            };
-            const result = await instructorsCollection.updateOne(filter, updateDoc, options)
-            res.send(result)
-        })
         app.get("/instructors/:id", async (req, res) => {
             const id = req.params.id
             const query = { _id: new ObjectId(id) };
             const result = await instructorsCollection.findOne(query)
             res.send(result)
         })
+
         //cart 
         app.post("/carts", async (req, res) => {
             const selectedClass = req.body
@@ -139,7 +212,7 @@ async function run() {
 
 
 
-        app.put('/payments', async (req, res) => {
+        app.put('/payments', verifyJWT, async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
             const payments = await paymentCollection.find(query).toArray();
@@ -159,19 +232,19 @@ async function run() {
             for (const classData of classesData) {
                 const classId = classData._id.toString();
                 const matchingPayments = payments.filter(payment => payment.courseId.includes(classId));
-                const seatsDecrement = matchingPayments.length; 
-                const seatsRemaining = Math.max(0, classData.availableSeats - seatsDecrement); 
+                const seatsDecrement = matchingPayments.length;
+                const seatsRemaining = Math.max(0, classData.availableSeats - seatsDecrement);
                 await classesCollection.updateOne({ _id: classData._id }, { $set: { availableSeats: seatsRemaining } });
-                classData.availableSeats = seatsRemaining; 
+                classData.availableSeats = seatsRemaining;
 
                 const totalStudents = classData.totalSeats - classData.availableSeats;
-               
+
                 console.log(classData);
                 const instructor = await instructorsCollection.findOne({ email: classData.email });
                 // console.log(totalStudents, "total Student", instructor  );
 
                 if (instructor) {
-                    
+
                     await instructorsCollection.updateOne(
                         { email: classData.email },
                         { $set: { totalStudents: totalStudents } }

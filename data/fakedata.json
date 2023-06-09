@@ -1,5 +1,6 @@
 [
   {
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/learn-spanish-language-online-education-concept_53876-139716.jpg?w=900&t=st=1686101512~exp=1686102112~hmac=0488931cb496e41b23912ed196a3258b9a3b0bdee7e430b7c29f0e16460b25e3",
     "name": "Beginner Spanish",
     "instructor": "Maria Rodriguez",
@@ -9,190 +10,192 @@
     "price": 99.99
   },
   {
-    
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/french-lesson-with-tutor-teacher-banner_570502-42.jpg?w=826&t=st=1686101485~exp=1686102085~hmac=7e1e2a2f2916bf24fbde57fd9e8aed74da521de69f084711eb912bf34058f700",
     "name": "Intermediate French",
     "instructor": "Jean-Luc Dubois",
     "email": "jean-luc.dubois@example.com",
-    "availableSeats": 10,
+    "availableSeats": 0,
     "totalSeats": 40,
     "price": 129.99
   },
   {
-    
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/learn-italian-language-online-education-concept_53876-132593.jpg?w=740&t=st=1686101447~exp=1686102047~hmac=a5b9f7ecccb5ffa8b9a883c195facf922a41ced44d96d3f49d4d92409a12f790",
     "name": "Advanced German",
     "instructor": "Hans Müller",
     "email": "hans.muller@example.com",
-    "availableSeats": 8,
+    "availableSeats": 14,
     "totalSeats": 40,
     "price": 149.99
-  },
+    },
   {
-    
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/learn-italian-language-online-education-concept_53876-132593.jpg?w=740&t=st=1686101447~exp=1686102047~hmac=a5b9f7ecccb5ffa8b9a883c195facf922a41ced44d96d3f49d4d92409a12f790",
     "name": "Elementary Italian",
     "instructor": "Giulia Rossi",
     "email": "giulia.rossi@example.com",
-    "availableSeats": 12,
+    "availableSeats": 23,
     "totalSeats": 40,
     "price": 89.99
   },
   {
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/business-people-working-together_155003-2382.jpg?w=900&t=st=1686101418~exp=1686102018~hmac=bbdb8c9114a08d9884659ae90ff84a401870f593cba5816c91ecbc2cf00f858c",
     "name": "Business English",
     "instructor": "John Smith",
     "email": "john.smith@example.com",
-    "availableSeats": 20,
+    "availableSeats": 38,
     "totalSeats": 40,
     "price": 179.99
   },
   {
-    
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/discover-japan-poster_1284-5359.jpg?w=740&t=st=1686101382~exp=1686101982~hmac=194cab1d38c6133d3e875c20b86cc67f6005dbc0b94c37f48322256f850c23d7",
     "name": "Japanese for Travelers",
     "instructor": "Yuki Tanaka",
     "email": "yuki.tanaka@example.com",
-    "availableSeats": 6,
+    "availableSeats": 18,
     "totalSeats": 40,
     "price": 79.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/translation-dictionary-flat-icons_1284-13181.jpg?w=740&t=st=1686101314~exp=1686101914~hmac=05d237203c0d158069917647b16198ba558f0df80912c699b93e4d74190fb012",
     "name": "Intermediate Mandarin",
     "instructor": "Li Wei",
     "email": "li.wei@example.com",
-    "availableSeats": 10,
+    "availableSeats": 30,
     "totalSeats": 40,
     "price": 129.99
   },
   {
-   
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/learning-french-concept-illustration_114360-16292.jpg?w=740&t=st=1686101259~exp=1686101859~hmac=051106ec19714dbc8569d165727c8a2250baceb3597bd395c42a540f895c9c9b",
     "name": "French Cuisine Language",
     "instructor": "Marie Lefèvre",
     "email": "marie.lefevre@example.com",
-    "availableSeats": 8,
+    "availableSeats": 29,
     "totalSeats": 40,
     "price": 149.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/hand-drawn-flat-design-poetry-illustration_23-2149310522.jpg?w=740&t=st=1686101181~exp=1686101781~hmac=70aa55284a066872486dd8df1168c1c150e82fb9970b46ed94dda5bc81d8ca6d",
     "name": "Spanish Literature",
     "instructor": "Carlos García",
     "email": "carlos.garcia@example.com",
-    "availableSeats": 15,
+    "availableSeats": 30,
     "totalSeats": 40,
     "price": 99.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/youngsters-studying-together-one-table_23-2147655990.jpg?w=900&t=st=1686097931~exp=1686098531~hmac=85c3e64bd9e29b0f61f9db590a40376fec551fc6ebfdfff60871c0d045f06977",
     "name": "German Grammar Workshop",
     "instructor": "Sabine Schmidt",
     "email": "sabine.schmidt@example.com",
-    "availableSeats": 12,
+    "availableSeats": 33,
     "totalSeats": 40,
     "price": 89.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/multicultural-people-talking-different-languages_23-2148369837.jpg?w=900&t=st=1686097858~exp=1686098458~hmac=10d2dc1ddf9e15ff25c53109c29c831d1ee1c2020b9316b87c6a3c2a2d828e3b",
     "name": "Russian Pronunciation",
     "instructor": "Natalia Ivanova",
     "email": "natalia.ivanova@example.com",
-    "availableSeats": 10,
+    "availableSeats": 38,
     "totalSeats": 40,
     "price": 129.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/hand-drawn-english-school-illustration_23-2149494006.jpg?w=900&t=st=1686097803~exp=1686098403~hmac=7bd3c797d6cd3515eebf543d845744dc0821687a9b60cdebc8c08178e51f4aca",
     "name": "English Conversation Club",
     "instructor": "Emily Johnson",
     "email": "emily.johnson@example.com",
-    "availableSeats": 20,
+    "availableSeats": 18,
     "totalSeats": 40,
     "price": 179.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/learn-italian-language-online-education-concept_53876-132593.jpg?w=740&t=st=1686097768~exp=1686098368~hmac=1850abf872fe01fa60dcf3e1c0b04b4d21f0d0d63234aa7d50e43e0b3e73b53f",
     "name": "Italian Opera Language",
     "instructor": "Antonio Russo",
     "email": "antonio.russo@example.com",
-    "availableSeats": 8,
+    "availableSeats": 27,
     "totalSeats": 40,
     "price": 149.99
   },
   {
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/peron-doing-presentation-her-colleagues_23-2149229035.jpg?w=900&t=st=1686097689~exp=1686098289~hmac=da2d3679ac791c00b266a78bb75d9a4b15cfbec2980cac9077ffa5ecc611c207",
     "name": "Spanish for Business",
     "instructor": "Isabella Fernandez",
     "email": "isabella.fernandez@example.com",
-    "availableSeats": 15,
+    "availableSeats": 5,
     "totalSeats": 40,
     "price": 99.99
   },
   {
-  
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/french-lesson-with-tutor-teacher-banner_570502-42.jpg?w=826&t=st=1686097584~exp=1686098184~hmac=98eca79a491c92c7513be96a725cc7712459f4ede05d8ab191fb86f6b6fc6997",
     "name": "French Pronunciation",
     "instructor": "Sophie Martin",
     "email": "sophie.martin@example.com",
-    "availableSeats": 12,
+    "availableSeats": 6,
     "totalSeats": 40,
     "price": 89.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/arabic-lesson-with-tutor-teacher-vector_570502-53.jpg?w=826&t=st=1686097533~exp=1686098133~hmac=47f0ca719cbf79fbf8082608c031285096475889c67cf9c3575427b078746c3e",
     "name": "Beginner Arabic",
     "instructor": "Ahmed Khalid",
     "email": "ahmed.khalid@example.com",
-    "availableSeats": 10,
+    "availableSeats": 8,
     "totalSeats": 40,
     "price": 129.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/students-talk-learning-spanish-language-banner_570502-57.jpg?w=826&t=st=1686097495~exp=1686098095~hmac=133ca4c3a9e01d69df89fcc5f659c19ff9bcffdd44c4c48b4c2af87452e00d80",
     "name": "Spanish Culture and History",
     "instructor": "Luis Gomez",
     "email": "luis.gomez@example.com",
-    "availableSeats": 15,
+    "availableSeats": 6,
     "totalSeats": 40,
     "price": 99.99
   },
   {
-   
+    "status":"approved",
     "image": "https://img.freepik.com/free-photo/traveller-with-binoculars-map_23-2147654238.jpg?w=900&t=st=1686097464~exp=1686098064~hmac=71e9611452832af3bab77a808d79a1d84e0550a9ead4b720901a73c670545b62",
     "name": "German for Travelers",
     "instructor": "Anna Wagner",
     "email": "anna.wagner@example.com",
-    "availableSeats": 8,
+    "availableSeats": 0,
     "totalSeats": 40,
     "price": 149.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/hand-drawn-essay-illustration_23-2150314651.jpg?w=740&t=st=1686097403~exp=1686098003~hmac=dffd3e273ed72f0269035879f59891ca0a9102921059ae8d48fb058b929ac120",
     "name": "English Writing Skills",
     "instructor": "Michael Thompson",
     "email": "michael.thompson@example.com",
-    "availableSeats": 20,
+    "availableSeats": 35,
     "totalSeats": 40,
     "price": 179.99
   },
   {
-
+    "status":"approved",
     "image": "https://img.freepik.com/free-vector/students-characters-learning-spanish-foreign-language-course_87771-10536.jpg?w=996&t=st=1686097320~exp=1686097920~hmac=707497986b0e79950a5370986cb2dbbcca4862ce024f0814225c33570a5f4f78",
     "name": "Spanish Pronunciation",
     "instructor": "Juan Martinez",
     "email": "juan.martinez@example.com",
-    "availableSeats": 12,
+    "availableSeats": 19,
     "totalSeats": 40,
     "price": 89.99
   }
