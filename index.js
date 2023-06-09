@@ -103,10 +103,10 @@ async function run() {
             const result = await usersCollection.find().toArray()
             res.send(result)
         })
-        app.put("/users/:id", verifyJWT, verifyAdmin, async(req,res)=>{
+        app.put("/users/:id", verifyJWT, verifyAdmin, async (req, res) => {
             const id = req.params.id
-            const updateInfo=req.body 
-            const query={_id:new ObjectId(id)}
+            const updateInfo = req.body
+            const query = { _id: new ObjectId(id) }
             const options = { upsert: true };
             const updateDoc = {
                 $set: {
@@ -141,17 +141,34 @@ async function run() {
             res.send(result)
         })
         // update Approve
-        app.put('/users/:id' , async(req, res)=>{
-            const id= req.params.id 
-            const query= {_id: new ObjectId(id)}
-            const doc= req.body
+        app.put('/classes/:id', verifyJWT, verifyAdmin, async (req, res) => {
+            const id = req.params.id
+            const doc = req.body
+            // console.log(doc, "doc");
+            const query = { _id: new ObjectId(id) }
             const options = { upsert: true };
             const updateDoc = {
                 $set: {
                     status: doc.status
                 },
             };
-            const result=await usersCollection.updateOne(query,updateDoc,options)
+            const result = await classesCollection.updateOne(query, updateDoc, options)
+            res.send(result)
+
+        })
+        app.patch('/classes/:id', verifyJWT, verifyAdmin, async (req, res) => {
+            const id = req.params.id
+            const doc = req.body
+            // console.log(doc, "doc");
+            const query = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    feedback: doc.feedback,
+                    status: doc.status
+                },
+            };
+            const result = await classesCollection.updateOne(query, updateDoc, options)
             res.send(result)
 
         })
@@ -211,7 +228,7 @@ async function run() {
         })
 
 
-
+        // payments 
         app.put('/payments', verifyJWT, async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
@@ -239,7 +256,7 @@ async function run() {
 
                 const totalStudents = classData.totalSeats - classData.availableSeats;
 
-                console.log(classData);
+                // console.log(classData);
                 const instructor = await instructorsCollection.findOne({ email: classData.email });
                 // console.log(totalStudents, "total Student", instructor  );
 
@@ -254,18 +271,6 @@ async function run() {
 
             res.send(classesData);
         });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         app.get("/carts", verifyJWT, async (req, res) => {
@@ -341,6 +346,15 @@ async function run() {
                 console.error('Error in fetching classes:', error);
                 res.status(500).send({ error: 'Internal server error' });
             }
+        });
+        app.get("/paymentshistory", async (req, res) => {
+            const useremail = req.query.email;
+            const query = { email: useremail };
+            const result = await paymentCollection
+                .find(query)
+                .sort({ date: -1 }) // Sort by date in descending order
+                .toArray();
+            res.send(result);
         });
 
 
