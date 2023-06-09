@@ -110,6 +110,20 @@ async function run() {
             const result = await instructorsCollection.find().toArray()
             res.send(result)
         })
+        app.put("/instructor", async (req, res) => {
+            const doc = req.body
+            console.log(doc)
+            const filter = { email: doc.email }
+            const options = { upsert: true };
+
+            const updateDoc = {
+                $set: {
+                    totalStudents: doc.totalStudent
+                },
+            };
+            const result = await instructorsCollection.updateOne(filter, updateDoc, options)
+            res.send(result)
+        })
         app.get("/instructors/:id", async (req, res) => {
             const id = req.params.id
             const query = { _id: new ObjectId(id) };
@@ -122,6 +136,64 @@ async function run() {
             const result = await cartCollection.insertOne(selectedClass)
             res.send(result)
         })
+
+
+
+        app.put('/payments', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const payments = await paymentCollection.find(query).toArray();
+
+            if (payments.length === 0) {
+                return res.send({ classes: [], message: 'No orders found' });
+            }
+
+            const courseIds = payments.flatMap(payment => payment.courseId.map(id => new ObjectId(id)));
+
+            const classesData = await classesCollection.find({ _id: { $in: courseIds } }).toArray();
+
+            if (classesData.length === 0) {
+                return res.send({ classes: [], message: 'No classes found' });
+            }
+
+            for (const classData of classesData) {
+                const classId = classData._id.toString();
+                const matchingPayments = payments.filter(payment => payment.courseId.includes(classId));
+                const seatsDecrement = matchingPayments.length; 
+                const seatsRemaining = Math.max(0, classData.availableSeats - seatsDecrement); 
+                await classesCollection.updateOne({ _id: classData._id }, { $set: { availableSeats: seatsRemaining } });
+                classData.availableSeats = seatsRemaining; 
+
+                const totalStudents = classData.totalSeats - classData.availableSeats;
+               
+                console.log(classData);
+                const instructor = await instructorsCollection.findOne({ email: classData.email });
+                // console.log(totalStudents, "total Student", instructor  );
+
+                if (instructor) {
+                    
+                    await instructorsCollection.updateOne(
+                        { email: classData.email },
+                        { $set: { totalStudents: totalStudents } }
+                    );
+                }
+            }
+
+            res.send(classesData);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         app.get("/carts", verifyJWT, async (req, res) => {
             const usersEmail = req.query.email
@@ -142,6 +214,8 @@ async function run() {
             const result = await cartCollection.deleteOne(query)
             res.send(result)
         })
+
+
         // payments 
 
         app.post('/create-payment-intent', verifyJWT, async (req, res) => {
@@ -162,12 +236,12 @@ async function run() {
             const payment = req.body;
             const insertResult = await paymentCollection.insertOne(payment);
 
-            const query = { _id: { $in: payment.courseId.map(id => new ObjectId(id)) } }
+            const query = { _id: { $in: payment.cartItemId.map(id => new ObjectId(id)) } }
             const deleteResult = await cartCollection.deleteMany(query)
 
             res.send({ insertResult, deleteResult });
         })
-        
+
 
         app.get('/payments', async (req, res) => {
             try {
@@ -179,11 +253,11 @@ async function run() {
                     return res.send([]);
                 }
 
-                const courseIds = payments.flatMap(payment => payment.courseId.map(id =>  new ObjectId(id)));
-                console.log(courseIds);
+                const courseIds = payments.flatMap(payment => payment.courseId.map(id => new ObjectId(id)));
+                // console.log(courseIds);
 
                 const classesData = await classesCollection.find({ _id: { $in: courseIds } }).toArray();
-                console.log(classesData);
+                // console.log(classesData);
 
                 if (classesData.length === 0) {
                     return res.send([]);
