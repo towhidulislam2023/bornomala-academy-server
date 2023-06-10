@@ -256,98 +256,42 @@ async function run() {
             const result = await instructorsCollection.findOne(query)
             res.send(result)
         })
-        app.post("/instructors", async (req, res) => {
+        app.post("/instructors",verifyInstructor,verifyAdmin, async (req, res) => {
             const doc = req.body
             const result = await instructorsCollection.insertOne(doc)
             res.send(result)
         })
+        
 
         //cart 
-        app.post("/carts", async (req, res) => {
+        app.post("/carts", verifyJWT, async (req, res) => {
             const selectedClass = req.body
             const result = await cartCollection.insertOne(selectedClass)
             res.send(result)
         })
 
+        app.get("/carts", verifyJWT, async (req, res) => {
+            const usersEmail = req.query.email
+            const decodedEmail = req.decoded.email;
+            if (usersEmail !== decodedEmail) {
+                return res.status(403).send({ error: true, message: 'forbidden access' })
+            }
+            if (!usersEmail) {
+                res.send([]);
+            }
+            const query = { studentEmail: usersEmail }
+            const result = await cartCollection.find(query).toArray()
+            res.send(result)
+        })
+        app.delete("/carts/:id", async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            const result = await cartCollection.deleteOne(query)
+            res.send(result)
+        })
+
 
         // payments 
-        // app.put('/payments', verifyJWT, async (req, res) => {
-        //     const userEmail = req.query.email;
-        //     const query = { email: userEmail };
-        //     const payments = await paymentCollection.find(query).toArray();
-
-        //     if (payments.length === 0) {
-        //         return res.send({ classes: [], message: 'No orders found' });
-        //     }
-
-        //     const classIds = payments.flatMap(payment => payment.courseId.map(id => new ObjectId(id)));
-
-        //     for (const classId of classIds) {
-        //         const classData = await classesCollection.findOne({ _id: classId });
-
-        //         if (!classData) {
-        //             return res.send({ classes: [], message: `Class with ID ${classId} not found` });
-        //         }
-
-        //         const matchingPayment = payments.find(payment => payment.courseId.includes(classId.toString()));
-
-        //         const seatsDecrement = matchingPayment ? 1 : 0;
-        //         const seatsRemaining = Math.max(0, classData.availableSeats - seatsDecrement);
-
-        //         await classesCollection.updateOne({ _id: classId }, { $set: { availableSeats: seatsRemaining } });
-        //         classData.availableSeats = seatsRemaining;
-
-        //         const totalStudents = classData.totalSeats - classData.availableSeats;
-
-        //         const instructor = await instructorsCollection.findOne({ email: classData.email });
-        //         if (instructor) {
-        //             const instructorClass = instructor.classes.find(classInfo => classInfo.classId === classId.toString());
-        //             if (instructorClass) {
-        //                 instructorClass.totalStudents = totalStudents;
-        //                 await instructorsCollection.updateOne(
-        //                     { email: classData.email, 'classes.classId': classId.toString() },
-        //                     { $set: { 'classes.$.totalStudents': totalStudents } }
-        //                 );
-        //             }
-        //         }
-        //     }
-
-        //     res.send({ message: 'Classes updated successfully' });
-        // });
-        // app.put('/payments', verifyJWT, async (req, res) => {
-        //     const userEmail = req.query.email;
-        //     const query = { email: userEmail };
-        //     const payments = await paymentCollection.find(query).toArray();
-
-        //     if (payments.length === 0) {
-        //         return res.send({ classes: [], message: 'No orders found' });
-        //     }
-
-        //     const classIds = payments.flatMap(payment => payment.courseId.map(id => new ObjectId(id)));
-
-        //     for (const classId of classIds) {
-        //         const classData = await classesCollection.findOne({ _id: classId });
-
-        //         if (!classData) {
-        //             return res.send({ classes: [], message: `Class with ID ${classId} not found` });
-        //         }
-
-        //         const matchingPayment = payments.find(payment => payment.courseId.includes(classId.toString()));
-
-        //         const seatsDecrement = matchingPayment ? 1 : 0;
-        //         const seatsRemaining = Math.max(0, classData.availableSeats - seatsDecrement);
-
-        //         await classesCollection.updateOne({ _id: classId }, { $set: { availableSeats: seatsRemaining } });
-        //         classData.availableSeats = seatsRemaining;
-        //     }
-
-        //     // Retrieve the updated classes data
-        //     const updatedClasses = await classesCollection.find({ _id: { $in: classIds } }).toArray();
-
-        //     res.send({ classes: updatedClasses, message: 'Classes updated successfully' });
-        // });
-        const { ObjectId } = require('mongodb');
-
         app.put('/payments', verifyJWT, async (req, res) => {
             try {
                 const id = req.query.id;
@@ -378,39 +322,6 @@ async function run() {
                 res.status(500).json({ message: 'Internal server error' });
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-        app.get("/carts", verifyJWT, async (req, res) => {
-            const usersEmail = req.query.email
-            const decodedEmail = req.decoded.email;
-            if (usersEmail !== decodedEmail) {
-                return res.status(403).send({ error: true, message: 'forbidden access' })
-            }
-            if (!usersEmail) {
-                res.send([]);
-            }
-            const query = { studentEmail: usersEmail }
-            const result = await cartCollection.find(query).toArray()
-            res.send(result)
-        })
-        app.delete("/carts/:id", async (req, res) => {
-            const id = req.params.id
-            const query = { _id: new ObjectId(id) }
-            const result = await cartCollection.deleteOne(query)
-            res.send(result)
-        })
-
-
-        // payments 
 
         app.post('/create-payment-intent', verifyJWT, async (req, res) => {
             const { price } = req.body;
