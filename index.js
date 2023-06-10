@@ -256,7 +256,7 @@ async function run() {
             const result = await instructorsCollection.findOne(query)
             res.send(result)
         })
-        app.post("/instructors",verifyInstructor,verifyAdmin, async (req, res) => {
+        app.post("/instructors",verifyJWT,verifyAdmin, async (req, res) => {
             const doc = req.body
             const result = await instructorsCollection.insertOne(doc)
             res.send(result)
