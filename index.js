@@ -258,6 +258,12 @@ async function run() {
         })
         app.post("/instructors",verifyJWT,verifyAdmin, async (req, res) => {
             const doc = req.body
+            const query = { email: doc.email }
+            const existingInstructor = await instructorsCollection.findOne(query);
+
+            if (existingInstructor) {
+                return res.send({ message: 'Instructor already exists' })
+            }
             const result = await instructorsCollection.insertOne(doc)
             res.send(result)
         })
